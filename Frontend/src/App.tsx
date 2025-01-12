@@ -155,8 +155,12 @@ const App: React.FC = () => {
             ))}
             {analysisResults.message === "new" ? (
                <li className="listitem">New Record! 🎉</li>
-            ) : (
+            ) : analysisResults.message === "improved" ? (
                <li className="listitem">{analysisResults.max}% of the way to your MAX SCORE! 😊</li>
+            )
+            
+            : (
+               <li className="listitem">error</li>
             )}
             {/* Text Detection */}
             {analysisResults.text && analysisResults.text.split('\n').map((line: string, index: number) => (
