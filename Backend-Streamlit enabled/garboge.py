@@ -28,7 +28,7 @@ CORS(app)
 last_detection = {"class": None}
 
 # Define the Streamlit interface
-st.title("Garbage Classification Streamlit App")
+st.title("BinThere.ai Streamlit App")
 st.sidebar.header("Settings")
 
 confidence_threshold = st.sidebar.slider("Confidence Threshold", 0, 100, 55)
