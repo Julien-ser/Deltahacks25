@@ -28,7 +28,7 @@ CORS(app)
 last_detection = {"class": None}
 
 # Define the Streamlit interface
-st.title("BinThere.ai Streamlit App")
+st.markdown('<h1 style="text-align: center;">BinThere.ai Streamlit App</h1>', unsafe_allow_html=True)
 st.sidebar.header("Settings")
 
 confidence_threshold = st.sidebar.slider("Confidence Threshold", 0, 100, 55)
@@ -173,7 +173,10 @@ def area_send():
         if(float(total_area) >= float(max)):
             return jsonify({"area": total_area, "max": max, "message": "new"})
         else:
-            return jsonify({"area": total_area, "max": str(round((float(total_area) / float(max)) * 100, 2)), "message": "no"})
+            percent = (round((float(total_area) / float(max)) * 100, 2))
+            if(percent >= 100):
+                percent = 99
+            return jsonify({"area": total_area, "max": str(percent), "message": "no"})
     except Exception as e:
         print("EEEE")
         # If the file does not exist or there is an error reading it
