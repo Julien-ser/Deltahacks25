@@ -51,6 +51,13 @@ def write_last_detection_to_file(class_label):
         f.write(class_label)
 
 def write_to(number):
+    with open("max.txt", "r") as f:
+        max = f.read()
+        f.close()
+        if(number > float(max)):
+            with open("max.txt", "w") as f:
+                f.write(str(number))
+                f.close()
     with open("number.txt", "w") as f:
         f.write(str(round(number, 2)))
 
@@ -159,7 +166,14 @@ def area_send():
     try:
         with open("number.txt", "r") as f:
             total_area = f.read().strip()  # Read and strip any extra whitespace
-        return jsonify({"area": total_area})
+            f.close()
+        with open("max.txt", "r") as f:
+            max = f.read().strip()
+            f.close()
+        if(float(total_area) >= float(max)):
+            return jsonify({"area": total_area, "max": max, "message": "new"})
+        else:
+            return jsonify({"area": total_area, "max": str(round((float(total_area) / float(max)) * 100, 2)), "message": "no"})
     except Exception as e:
         print("EEEE")
         # If the file does not exist or there is an error reading it
@@ -175,7 +189,7 @@ def Text_API():
                 messages=[
                     {
                         "role": "user",
-                        "content": f"What waste bin would one put {last_detection} in?"
+                        "content": f"What waste bin would one put {last_detection} in? Put the data in jots if possible."
                     }
                 ]
             )
@@ -197,7 +211,7 @@ def image_API():
                 "content": [
                     {
                         "type": "text",
-                        "text": "Identify the piece of trash in this image, and explain how to dispose of it according to garbage disposal laws and recommendations in the region of Hamilton, Ontario. Additionally, provide from 1 to 4 ways to reuse the piece of trash instead of throwing it out. If there are better and more ways to reuse the trash, provide more alternatives for reuse, up to 4. However, if there are fewer ways to reuse the trash, provide fewer alternatives for reuse, down to 1."
+                        "text": "Identify the piece of trash in this image, and explain how to dispose of it according to garbage disposal laws and recommendations in the region of Hamilton, Ontario. Additionally, provide from 1 to 4 ways to reuse the piece of trash instead of throwing it out. If there are better and more ways to reuse the trash, provide more alternatives for reuse, up to 4. However, if there are fewer ways to reuse the trash, provide fewer alternatives for reuse, down to 1. Have line separated jots if possible."
                     },
                     {
                         "type": "image_url",

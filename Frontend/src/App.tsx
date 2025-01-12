@@ -60,15 +60,19 @@ const App: React.FC = () => {
          const imageData = await imageResponse.json();
 
          setAnalysisResults({
-            area: arData.area || "N/A",
+            area: arData.area || "No area detected",
             text: textData.text || "No text detected",
             img_data: imageData.img_data || "No image detected",
+            max: arData.max || "N/A",
+            message: arData.message || "N/A",
          });
       } catch (error) {
          setAnalysisResults({
             area: "Error during analysis",
             text: "Error fetching text detection",
             img_data: "Error fetching image detection",
+            max: "N/A",
+            message: "N/A",
          });
       } finally {
          setIsScanning(false); // End scanning once analysis is done
@@ -149,6 +153,11 @@ const App: React.FC = () => {
                   {parseText(line)} Joules of Energy saved! <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
                </li>
             ))}
+            {analysisResults.message === "new" ? (
+               <li className="listitem">New Record! 🎉</li>
+            ) : (
+               <li className="listitem">{analysisResults.max}% of the way to your MAX SCORE! 😊</li>
+            )}
             {/* Text Detection */}
             {analysisResults.text && analysisResults.text.split('\n').map((line: string, index: number) => (
                <li className="listitem" key={`text-line-${index}`}>
