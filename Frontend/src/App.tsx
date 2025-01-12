@@ -36,23 +36,23 @@ const App: React.FC = () => {
 
    const handleAnalyzeClick = async () => {
       console.log("Analyze button clicked");
-   
+
       try {
          // Fetch text detection from the backend
          const textResponse = await fetch("http://172.17.73.20:8000/text");
          const textData = await textResponse.json();
          console.log("Text detection result:", textData);
-   
+
          // Fetch image detection from the backend
          const imageResponse = await fetch("http://172.17.73.20:8000/image");
          const imageData = await imageResponse.json();
          console.log("Image detection result:", imageData);
-   
+
          // Display the results
          alert(
-            `Analysis Complete:\n\nText Detection: ${textData.text || "No text detected"}\nImage Detection: ${
-               imageData.img_data || "No image detected"
-            }`
+            `Analysis Complete:\n\nText Detection: ${
+               textData.text || "No text detected"
+            }\nImage Detection: ${imageData.img_data || "No image detected"}`
          );
       } catch (error) {
          console.error("Error during analysis:", error);
@@ -61,14 +61,16 @@ const App: React.FC = () => {
    };
 
    return (
-      <div id="root">
+      <>
          {/* Left Tree 1 */}
-         <img
-            src={sideTreeRight}
-            alt="Side Screen Tree"
-            className="side-tree"
-            id="left-tree-1"
-         />
+         <div className="tree-wrapper" id="left-tree-wrapper">
+            <img
+               src={sideTreeRight}
+               alt="Side Screen Tree"
+               className="side-tree"
+               id="left-tree-1"
+            />
+         </div>
 
          {/* Central Content */}
          <div className="central-container">
@@ -93,13 +95,15 @@ const App: React.FC = () => {
          </div>
 
          {/* Right Tree 1 */}
-         <img
-            src={sideTreeLeft}
-            alt="Side Screen Tree"
-            className="side-tree"
-            id="right-tree-1"
-         />
-      </div>
+         <div className="tree-wrapper" id="right-tree-wrapper">
+            <img
+               src={sideTreeLeft}
+               alt="Side Screen Tree"
+               className="side-tree"
+               id="right-tree-1"
+            />
+         </div>
+      </>
    );
 };
 

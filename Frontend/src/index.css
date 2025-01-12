@@ -1,10 +1,15 @@
-/* Ensure full height and no scroll */
-body,
+/* Ensure full height with a minimum length of 140% */
 html {
+   overflow-y: auto;
+}
+
+html,
+body {
    margin: 0;
    padding: 0;
-   height: 100%;
-   overflow-x: hidden;
+   height: 100%; /* Ensure html and body take up full viewport height */
+   min-height: 140%; /* Set the minimum page length */
+   overflow-x: hidden; /* Prevent horizontal scrolling */
    font-size: 1.4rem;
 }
 
@@ -16,40 +21,58 @@ html {
    --color-button-hover: #6ba9c4;
 }
 
-/* Entire page background color */
+/* Page background */
 body {
-   background-color: var(--color-dark-green); /* Dark green background */
+   background-color: var(--color-dark-green);
    display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh;
-   position: relative; /* For absolute positioning of child elements */
+   flex-direction: column; /* Allow content to flow vertically */
+   align-items: center; /* Center elements horizontally */
+   position: relative;
+   min-height: 140%; /* Match the height of the html */
+   overflow-y: hidden; /* Enable vertical scrolling when needed */
 }
 
+/* Ensure the root div matches the full height of the page */
 #root {
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   flex-grow: 1; /* Allow #root to grow with its parent */
+   min-height: 100%; /* Match the minimum height of html and body */
    width: 100%;
-   height: 100%;
+   display: grid;
+   place-items: center;
+}
+
+#last-detection-text {
+   margin-top: 1.75%;
+   margin-bottom: 0.8%;
 }
 
 /* Tree images */
 .side-tree {
    position: absolute;
-   top: 50%; /* Align vertically with the center of the viewport */
-   transform: translateY(-50%) scale(0.15); /* Center vertically and scale */
+   top: 50%;
+   transform: translateY(-50%) scale(0.15);
+   z-index: 10;
+}
+
+.tree-wrapper {
+   position: absolute;
+   top: 50%;
+   transform: scale(0.085);
    z-index: 10;
 }
 
 #left-tree-1 {
-   left: 3%; /* Position 3% from the left edge */
-   margin-left: -28%;
+   position: absolute;
+   left: 0;
+   transform: translate(110%, -229%) rotate(-20deg);
+   z-index: 10;
 }
 
 #right-tree-1 {
-   right: 3%; /* Position 3% from the right edge */
-   margin-right: -28%;
+   position: absolute;
+   right: 0;
+   transform: translate(-110%, -229%) rotate(20deg);
+   z-index: 10;
 }
 
 /* Central container */
@@ -57,7 +80,7 @@ body {
    background-color: var(--color-off-white);
    border-radius: 2rem;
    width: 72%;
-   height: 85%;
+   min-height: 90%; /* Ensure the container matches the desired proportion */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    display: flex;
    flex-direction: column;
@@ -65,14 +88,13 @@ body {
    align-items: center;
    padding: 2rem;
    overflow: hidden;
-   position: relative; /* For child element positioning */
-   z-index: 2; /* Ensure content is above the trees */
+   position: relative;
+   z-index: 2;
 }
 
 /* Title styling */
 #title-image {
    transform: scale(0.7);
-   margin-top: -4.5%;
    margin-bottom: -4%;
 }
 
