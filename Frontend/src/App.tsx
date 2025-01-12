@@ -5,13 +5,17 @@ import sideTreeRight from "./assets/sideTreeRight.png";
 
 // Function to parse and wrap **text** in <strong> tags for bolding
 const parseText = (text: string) => {
-   return text.split('**').map((part, index) => {
-     if (index % 2 !== 0) {
-       return <strong key={index}>{part}</strong>;
-     }
-     return part;
-   });
+   return text
+     .replace(/#/g, '') // Remove all '#' symbols
+     .split('**')
+     .map((part, index) => {
+       if (index % 2 !== 0) {
+         return <strong key={index}>{part}</strong>;
+       }
+       return part;
+     });
 };
+
 
 const App: React.FC = () => {
    const [showStreamlit, setShowStreamlit] = useState(false);
@@ -99,7 +103,7 @@ const App: React.FC = () => {
                      {/* Area */}
                      {analysisResults.area && analysisResults.area.split('\n').map((line: string, index: number) => (
                         <li className="listitem" key={`area-line-${index}`}>
-                           {parseText(line)} Joules
+                           {parseText(line)} Joules <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
                         </li>
                      ))}
                      {/* Text Detection */}
