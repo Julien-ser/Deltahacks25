@@ -1,4 +1,4 @@
-### Deltahacks 2025
+# Deltahacks 2025
 Our Team's Work For The 2025 DeltaHacks Challenge
 
 ## Initial ideas:
