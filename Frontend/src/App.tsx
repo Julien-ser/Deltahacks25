@@ -146,7 +146,7 @@ const App: React.FC = () => {
             {/* Area */}
             {analysisResults.area && analysisResults.area.split('\n').map((line: string, index: number) => (
                <li className="listitem" key={`area-line-${index}`}>
-                  {parseText(line)} Joules <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
+                  {parseText(line)} Joules of Energy saved! <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
                </li>
             ))}
             {/* Text Detection */}
