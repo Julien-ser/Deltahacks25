@@ -42,6 +42,8 @@ stop_button = st.sidebar.button("Stop Detection")
 project = rf.workspace().project("garbage-classification-3")
 model = project.version(2).model
 
+total_area = 0
+
 # Define a function to update the last detection in Streamlit state
 '''def update_last_detection(class_label):
     """Update the last detection state."""
@@ -50,6 +52,10 @@ def write_last_detection_to_file(class_label):
     """Write the last detection class to a text file."""
     with open("last_detection.txt", "w") as f:
         f.write(class_label)
+
+def write_to(number):
+    with open("number.txt", "w") as f:
+        f.write(str(number)) 
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -83,6 +89,21 @@ if start_detection:
 
         # Load the results into the supervision Detections API
         detections = sv.Detections.from_inference(results)
+
+        for detection in detections:
+            #print(detection)
+            coordinates = detection[0]  # This is the numpy array [x1, y1, x2, y2]
+            print(coordinates)
+            x1, y1, x2, y2 = coordinates  # Unpack the coordinates
+
+            # Calculate width and height
+            width = int(x2) - int(x1)
+            height = int(y2) - int(y1)
+
+            # Calculate area
+            area = width * height
+            total_area += area
+            write_to(total_area)
 
         # Create supervision annotators
         bounding_box_annotator = sv.BoxAnnotator()
@@ -122,6 +143,18 @@ def get_last_detection():
         print("EEEE")
         # If the file does not exist or there is an error reading it
         return jsonify({"error": f"Error reading the last detection: {str(e)}"})
+
+
+@app.route("/area", methods=['GET'])
+def area_send():
+    try:
+        with open("number.txt", "r") as f:
+            total_area = f.read().strip()  # Read and strip any extra whitespace
+        return jsonify({"area": total_area})
+    except Exception as e:
+        print("EEEE")
+        # If the file does not exist or there is an error reading it
+        return jsonify({"error": f"Error reading the last detection: {str(e)}"})
     
 @app.route("/text", methods=['GET'])
 def Text_API():
@@ -129,12 +162,12 @@ def Text_API():
         with open("last_detection.txt", "r") as f:
             last_detection = f.read().strip()  # Read and strip any extra whitespace
             completion = client.chat.completions.create(
-                model = "gpt-4o",
-                messages = [
-                        {
-                            "role": "user",
-                            "content": f"{last_detection}"
-                        }
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"What waste bin would one put {last_detection} in?"
+                    }
                 ]
             )
         return jsonify({"text": completion.choices[0].message.content.strip()})
@@ -148,14 +181,14 @@ def image_API():
                 # Getting the base64 string
     base64_image = encode_image("mage.png")
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "text",
-                        "text": "What is in this image?",
+                        "text": "Identify the piece of trash in this image, and explain how to dispose of it according to garbage disposal laws and recommendations in the region of Hamilton, Ontario. Additionally, provide from 1 to 4 ways to reuse the piece of trash instead of throwing it out. If there are better and more ways to reuse the trash, provide more alternatives for reuse, up to 4. However, if there are fewer ways to reuse the trash, provide fewer alternatives for reuse, down to 1."
                     },
                     {
                         "type": "image_url",
