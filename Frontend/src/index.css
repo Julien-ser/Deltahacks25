@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Flamenco:wght@300;400&family=League+Spartan:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+   font-family: "Rubik", serif;
+}
+
 /* Ensure full height with a minimum length of 140% */
 html {
    overflow-y: auto;
 }
+
+.analysis-results h3 {
+   text-align: center;
+   color: #2e4a34;
+   width: 100%;
+}
+
 
 html,
 body {
@@ -19,6 +32,7 @@ body {
    --color-button-bg: #88c0d0;
    --color-button-text: #ffffff;
    --color-button-hover: #6ba9c4;
+   --color-dark-green-dark: #2e4a34;
 }
 
 /* Page background */
@@ -64,16 +78,28 @@ body {
 #left-tree-1 {
    position: absolute;
    left: 0;
-   transform: translate(115%, -230%) rotate(-30deg);
+   transform: translate(2440px, -6780px) rotate(-20deg);
    z-index: 10;
 }
 
 #right-tree-1 {
    position: absolute;
    right: 0;
-   transform: translate(-115%, -230%) rotate(30deg);
+   transform: translate(-2440px, -6780px) rotate(20deg);
    z-index: 10;
 }
+
+.analysis-results {
+   background-color: #fff;
+   padding: 1rem;
+   border-radius: 25px; /* Increased to make the corners more rounded */
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for a lifted effect */
+   margin-top: 1rem;
+   max-height: 200px;
+   overflow-y: auto;
+   width: 100%;
+}
+
 
 /* Title styling */
 #title-image {
@@ -128,7 +154,30 @@ body {
 
 .streamlit-iframe {
    width: 100%;
-   height: 50%;
+   height: 80vh;
    border: none;
+   border-radius: 1rem;
    margin-top: 1rem;
+}
+
+.listitem {
+   padding: 0.5rem;
+   margin: 0.5rem;
+   border-radius: 0.5rem;
+   color:#2e4a34;
+   background-color: var(--color-off-white); /* Default background color */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   list-style-type: none;
+   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.listitem:hover {
+   transform: scale(1.05); /* Slight expansion */
+   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+   background-color: rgba(52, 152, 219, 0.2); /* Subtle blue fill with opacity */
+   color: #333333; /* Darker text color for better contrast */
+}
+
+.listitem:active {
+   transform: scale(1.02); /* Very subtle shrink effect on click */
 }

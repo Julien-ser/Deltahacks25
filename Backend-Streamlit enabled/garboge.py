@@ -102,7 +102,7 @@ if start_detection:
 
             # Calculate area
             area = width * height
-            area_fixed = float(area)/92903.4
+            area_fixed = float(area)/float(1e-9)
             if(class_label == "PAPER"):
                 area_fixed = area_fixed * 0.6
                 area_fixed = area_fixed * 0.8
@@ -116,7 +116,7 @@ if start_detection:
                 area_fixed = area_fixed * 0.7
                 area_fixed = area_fixed * 1.1
             total_area += area
-            write_to((total_area/1000))
+            write_to((total_area/1000) * 9.81)
 
         # Create supervision annotators
         bounding_box_annotator = sv.BoxAnnotator()
