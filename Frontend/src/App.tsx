@@ -38,6 +38,9 @@ const App: React.FC = () => {
       console.log("Analyze button clicked");
 
       try {
+         const arResponse = await fetch("http://172.17.73.20:8000/area");
+         const arData = await arResponse.json();
+         console.log("Total area saved: ", arData, "ft^2");
          // Fetch text detection from the backend
          const textResponse = await fetch("http://172.17.73.20:8000/text");
          const textData = await textResponse.json();
@@ -50,7 +53,9 @@ const App: React.FC = () => {
 
          // Display the results
          alert(
-            `Analysis Complete:\n\nText Detection: ${
+            `Analysis Complete:\n\nEnergy saved: ${
+               arData.area || "N/A"
+            }kg\n\nText Detection: ${
                textData.text || "No text detected"
             }\nImage Detection: ${imageData.img_data || "No image detected"}`
          );

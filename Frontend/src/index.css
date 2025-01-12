@@ -64,15 +64,22 @@ body {
 #left-tree-1 {
    position: absolute;
    left: 0;
-   transform: translate(110%, -229%) rotate(-20deg);
+   transform: translate(115%, -230%) rotate(-30deg);
    z-index: 10;
 }
 
 #right-tree-1 {
    position: absolute;
    right: 0;
-   transform: translate(-110%, -229%) rotate(20deg);
+   transform: translate(-115%, -230%) rotate(30deg);
    z-index: 10;
+}
+
+/* Title styling */
+#title-image {
+   transform: scale(0.7);
+   margin-top: -5.5%;
+   margin-bottom: -4%;
 }
 
 /* Central container */
