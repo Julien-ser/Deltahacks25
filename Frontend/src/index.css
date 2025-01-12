@@ -68,26 +68,73 @@ body {
    z-index: 10;
 }
 
-.tree-wrapper {
-   position: absolute;
-   top: 50%;
-   transform: scale(0.085);
-   z-index: 10;
-}
+
 
 #left-tree-1 {
    position: absolute;
-   left: 0;
-   transform: translate(2440px, -6780px) rotate(-20deg);
+   top: 26%;
+   width: 6vw; 
+   right: 35%;  /* Move the left tree further left */
+   transform: rotate(-45deg);
    z-index: 10;
 }
 
 #right-tree-1 {
    position: absolute;
-   right: 0;
-   transform: translate(-2440px, -6780px) rotate(20deg);
+   top: 26%;
+   width: 6vw; 
+   left: 35%;  /* Move the right tree further right */
+   transform: rotate(45deg);
    z-index: 10;
 }
+
+#purple-flower {
+   position: absolute;
+   top: 12%;
+   left: 8%;
+   width: 10vw;  /* Control size with width */
+   height: auto;
+   z-index: 10;
+}
+
+#floating-image {
+   position: absolute;
+   top: -80%;
+   left: 39%;
+   transform: scale(0.085);  /* Center horizontally */
+   width: 5vw;
+   height: auto;
+   z-index: 10;
+}
+
+#imagination {
+   position: absolute;
+   top: 11%;
+   left: 82%;
+   width: 10vw;
+   height: auto;
+   z-index: 10;
+}
+
+#blue-flower {
+   position: absolute;
+   top: 88%;
+   left: 9%;
+   width: 10vw;
+   height: auto;
+   z-index: 10;
+}
+
+#pink-flower {
+   position: absolute;
+   top: 88%;
+   left: 82%;
+   width: 10vw;
+   height: auto;
+   z-index: 10;
+}
+
+
 
 .analysis-results {
    background-color: #fff;

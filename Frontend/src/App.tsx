@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import Title from "./components/Title";
 import sideTreeLeft from "./assets/sideTreeLeft.png";
 import sideTreeRight from "./assets/sideTreeRight.png";
+import flowerBlue from "./assets/flowerBlue.png";
+import flowerPink from "./assets/flowerPink.png";
+import flowerPurple from "./assets/flowerPurple.png";
+import Sun from "./assets/Sun.png";
+import Imagination from "./assets/Imagination.png";
+
 
 // Function to parse and wrap **text** in <strong> tags for bolding
 const parseText = (text: string) => {
@@ -68,6 +74,18 @@ const App: React.FC = () => {
          setIsScanning(false); // End scanning once analysis is done
       }
    };
+            /*<button onClick={() => setShowStreamlit(!showStreamlit)} className="toggle-button">
+               {showStreamlit ? "Hide Streamlit App" : "Show Streamlit App"}
+            </button>
+            {/* "Show/Hide Analysis" Button at the bottom }*/
+/*            <div className="bottom-container">
+               <button onClick={() => setShowAnalysis(!showAnalysis)} className="toggle-button">
+                  {showAnalysis ? "Hide Analysis" : "Show Analysis"}
+               </button>
+            </div>*/ 
+            /*{showStreamlit && (
+               <iframe src="http://172.17.73.20:8501" title="Streamlit App" className="streamlit-iframe" />
+            )}*/
 
    return (
       <>
@@ -76,13 +94,39 @@ const App: React.FC = () => {
             <img src={sideTreeRight} alt="Side Screen Tree" className="side-tree" id="left-tree-1" />
          </div>
 
+                   {/* Sun */}
+                   <div id="floating-image">
+            <img src={Sun} alt="Sun" className="sun" />
+         </div>
+
+
+        
+         {/* BlueFlower */}
+         <div className="flower-wrapper" id="blue-flower-wrapper">
+            <img src={flowerBlue} alt="Blue Flower" className="flower" id="blue-flower" />
+         </div>
+
+         {/* PinkFlower */}
+         <div className="flower-wrapper" id="pink-flower-wrapper">
+            <img src={flowerPink} alt="Pink Flower" className="flower" id="pink-flower" />
+         </div>
+
+         {/* PurpleFlower */}
+         <div className="flower-wrapper" id="purple-flower-wrapper">
+            <img src={flowerPurple} alt="Purple Flower" className="flower" id="purple-flower" />
+         </div>
+
+         {/* Imagination */}
+         <div className="flower-wrapper" id="imagination-wrapper">
+            <img src={Imagination} alt="Wild Flower" className="flower" id="imagination" />
+         </div>
+
+
          {/* Central Content */}
          <div className="central-container">
             <Title />
             <p id="last-detection-text">Last Detection: {lastDetection}</p>
-            <button onClick={() => setShowStreamlit(!showStreamlit)} className="toggle-button">
-               {showStreamlit ? "Hide Streamlit App" : "Show Streamlit App"}
-            </button>
+            
             <button 
                onClick={handleAnalyzeClick} 
                className="toggle-button" 
@@ -91,42 +135,42 @@ const App: React.FC = () => {
                {isScanning ? "Scanning..." : "Analyze"}
             </button>
 
-            {showStreamlit && (
                <iframe src="http://172.17.73.20:8501" title="Streamlit App" className="streamlit-iframe" />
-            )}
 
-            {/* Conditional rendering of the analysis results */}
-            {showAnalysis && analysisResults && (
-               <div className="analysis-results">
-                  <h3>Analysis Complete</h3>
-                  <ul>
-                     {/* Area */}
-                     {analysisResults.area && analysisResults.area.split('\n').map((line: string, index: number) => (
-                        <li className="listitem" key={`area-line-${index}`}>
-                           {parseText(line)} Joules <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
-                        </li>
-                     ))}
-                     {/* Text Detection */}
-                     {analysisResults.text && analysisResults.text.split('\n').map((line: string, index: number) => (
-                        <li className="listitem" key={`text-line-${index}`}>
-                           {parseText(line)}
-                        </li>
-                     ))}
-                     {/* Image Detection */}
-                     {analysisResults.img_data && analysisResults.img_data.split('\n').map((line: string, index: number) => (
-                        <li className="listitem" key={`img-data-line-${index}`}>
-                           {parseText(line)}
-                        </li>
-                     ))}
-                  </ul>
-               </div>
-            )}
-            {/* "Show/Hide Analysis" Button at the bottom */}
-            <div className="bottom-container">
-               <button onClick={() => setShowAnalysis(!showAnalysis)} className="toggle-button">
-                  {showAnalysis ? "Hide Analysis" : "Show Analysis"}
-               </button>
-            </div>
+            {/* Conditional rendering of the analysis results showAnalysis &&  */}
+            <div className="analysis-results" style={{ height: '300px' }}>
+   {analysisResults ? (
+      <>
+         <h3>Analysis Complete</h3>
+         <ul>
+            {/* Area */}
+            {analysisResults.area && analysisResults.area.split('\n').map((line: string, index: number) => (
+               <li className="listitem" key={`area-line-${index}`}>
+                  {parseText(line)} Joules <a href="https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/solid-waste-diversion-disposal.html?utm_source=chatgpt.com">Where did we get this?</a>
+               </li>
+            ))}
+            {/* Text Detection */}
+            {analysisResults.text && analysisResults.text.split('\n').map((line: string, index: number) => (
+               <li className="listitem" key={`text-line-${index}`}>
+                  {parseText(line)}
+               </li>
+            ))}
+            {/* Image Detection */}
+            {analysisResults.img_data && analysisResults.img_data.split('\n').map((line: string, index: number) => (
+               <li className="listitem" key={`img-data-line-${index}`}>
+                  {parseText(line)}
+               </li>
+            ))}
+         </ul>
+      </>
+   ) : (
+      <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+         <p>No results available</p> {/* You can use a placeholder like "No results available" */}
+      </div>
+   )}
+</div>
+
+            
          </div>
 
          {/* Right Tree */}

@@ -45,9 +45,6 @@ model = project.version(2).model
 total_area = 0
 
 # Define a function to update the last detection in Streamlit state
-'''def update_last_detection(class_label):
-    """Update the last detection state."""
-    st.session_state.last_detection = class_label  # Store the value in session_state'''
 def write_last_detection_to_file(class_label):
     """Write the last detection class to a text file."""
     with open("last_detection.txt", "w") as f:
@@ -55,7 +52,7 @@ def write_last_detection_to_file(class_label):
 
 def write_to(number):
     with open("number.txt", "w") as f:
-        f.write(str(number)) 
+        f.write(str(round(number, 2)))
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -93,7 +90,6 @@ if start_detection:
         for detection in detections:
             #print(detection)
             coordinates = detection[0]  # This is the numpy array [x1, y1, x2, y2]
-            print(coordinates)
             x1, y1, x2, y2 = coordinates  # Unpack the coordinates
 
             # Calculate width and height
@@ -142,7 +138,7 @@ if start_detection:
 
 # Show a fallback message if not detecting
 else:
-    st.write("Click 'Start Detection' to begin.")
+    st.markdown("<h2 style='text-align: center;'>Click 'Start Detection' to begin. Then click stop once the item you want is recorded. Finally, then press Analyze button for results</h2>", unsafe_allow_html=True)
 
 # Flask API endpoint for fetching the last detection
 @app.route('/last-detection', methods=['GET'])
