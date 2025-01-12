@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#6b8e23"          # Olive Green, a more balanced green
+backgroundColor = "#f4f4f4"       # Light Gray, a soft neutral background
+secondaryBackgroundColor = "#d3e4d9" # Light Green, subtle contrast for sidebar
+textColor = "#2e4a34"             # Dark Green for text, a soft dark tone that's easy to read
+font = "sans serif"               # Modern sans serif font

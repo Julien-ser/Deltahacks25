@@ -155,10 +155,9 @@ const App: React.FC = () => {
             ))}
             {analysisResults.message === "new" ? (
                <li className="listitem">New Record! 🎉</li>
-            ) : analysisResults.message === "improved" ? (
+            ) : analysisResults.message === "no" ? (
                <li className="listitem">{analysisResults.max}% of the way to your MAX SCORE! 😊</li>
             )
-            
             : (
                <li className="listitem">error</li>
             )}

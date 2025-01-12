@@ -33,6 +33,9 @@ body {
    --color-button-text: #ffffff;
    --color-button-hover: #6ba9c4;
    --color-dark-green-dark: #2e4a34;
+   --color-lighter-dark-green: #35663c;
+   --color-lighter-lighter-dark-green: #437c4c;
+
 }
 
 /* Page background */
