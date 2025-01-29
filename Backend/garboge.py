@@ -9,9 +9,10 @@ from threading import Thread
 from flask_cors import CORS
 from openai import OpenAI
 import base64
+from pathlib import Path
 
 # Load .env file
-load_dotenv()
+load_dotenv(dotenv_path=Path("..") / ".env")
 
 client = OpenAI(
     api_key = os.getenv("OAI"),
